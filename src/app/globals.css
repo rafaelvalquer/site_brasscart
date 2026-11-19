@@ -1,26 +1,207 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Design system Brasscart
+ * Paleta derivada do logotipo oficial e das peças publicadas no Instagram:
+ *  - Azul do símbolo "SS" ........ #0070B8  (brand-500)
+ *  - Azul-marinho das peças ...... #014D8B  (brand-700)
+ *  - Amarelo de destaque ......... #F0C810  (sun-400) — uso pontual
+ *  - Grafite do logotipo ......... #303836  (graphite)
+ */
 
 @theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: #eef6fc;
+  --color-brand-100: #d7eaf8;
+  --color-brand-200: #b0d4f0;
+  --color-brand-300: #7db7e3;
+  --color-brand-400: #3f93d0;
+  --color-brand-500: #0070b8;
+  --color-brand-600: #005e9c;
+  --color-brand-700: #014d8b;
+  --color-brand-800: #033b6b;
+  --color-brand-900: #062a4d;
+  --color-brand-950: #04182e;
+
+  --color-sun-100: #fdf5cf;
+  --color-sun-300: #f7dc5c;
+  --color-sun-400: #f0c810;
+  --color-sun-600: #b08f00;
+
+  --color-graphite: #303836;
+  --color-ink: #16202b;
+  --color-surface: #f4f7fb;
+
+  --color-wa: #0b7a41;
+  --color-wa-hover: #08643a;
+  --color-wa-bright: #12a150;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --shadow-soft: 0 1px 2px rgb(6 42 77 / 0.04), 0 8px 24px -12px rgb(6 42 77 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(6 42 77 / 0.05), 0 24px 48px -20px rgb(6 42 77 / 0.25);
+
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 1s ease-out both;
+  --animate-pulse-ring: pulse-ring 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.45;
+    }
+    70%,
+    100% {
+      transform: scale(1.45);
+      opacity: 0;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  --background: #ffffff;
+  --foreground: #16202b;
+  --card: #ffffff;
+  --card-foreground: #16202b;
+  --popover: #ffffff;
+  --popover-foreground: #16202b;
+  --primary: #0070b8;
+  --primary-foreground: #ffffff;
+  --secondary: #eef3f8;
+  --secondary-foreground: #062a4d;
+  --muted: #f4f7fb;
+  --muted-foreground: #526070;
+  --accent: #eef6fc;
+  --accent-foreground: #033b6b;
+  --destructive: #c42b1c;
+  --border: #e2e8f0;
+  --input: #cfd8e3;
+  --ring: #3f93d0;
+  --radius: 0.875rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    scroll-padding-top: 6rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading tracking-tight text-ink;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--color-brand-100);
+    color: var(--color-brand-900);
+  }
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility section-y {
+  padding-block: 4.5rem;
+  @media (width >= 48rem) {
+    padding-block: 6.5rem;
+  }
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(0 112 184 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(0 112 184 / 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
 }

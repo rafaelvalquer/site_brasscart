@@ -1,0 +1,15 @@
+# Configuração de deploy no Netlify.
+# O Netlify detecta o Next.js e aplica o adaptador OpenNext automaticamente
+# (rotas, otimização de imagens, cache e cabeçalhos do next.config.ts).
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Deploy previews e branches: mantêm rascunhos e demonstrações desligados.
+# Para revisar conteúdo não confirmado, defina NEXT_PUBLIC_SHOW_DRAFTS=true
+# apenas no contexto "deploy-preview" pelo painel do Netlify.
